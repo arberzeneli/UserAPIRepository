@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
     //@Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepo userRepo){
@@ -25,13 +25,6 @@ public class UserService {
 
 
     public List<User> getUsers() {
-        User user=userRepo.findById(1L).orElse(new User());
-        String encodedPassword=passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        userRepo.save(user);
-        String psw=passwordEncoder.encode("123456");
-        System.out.println( psw+ " decoded password");
-
         return this.userRepo.findAll();
     }
 
